@@ -1,16 +1,6 @@
 package test;
 
-import java.awt.Color;
-import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.swing.JCheckBox;
-import javax.swing.JPanel;
-import model.Field;
-import model.MySQL;
-import model.Table;
+import view.Drawer;
 
 /**
  *
@@ -18,30 +8,10 @@ import model.Table;
  */
 public class Test extends javax.swing.JFrame {
 
-    private MySQL mysql;
+    private Drawer drawer;
 
     public Test() {
-        try {
-            initComponents();
-
-            mysql = new MySQL("uber", "123456");
-
-            List<String> tableNames = mysql.getTablesName();
-
-//            for (Table table : mysql.getTables(tableNames)) {
-//                System.out.println();
-//                System.out.println(table);
-//                System.out.println();
-//                for (Field field : table.getFields()) {
-//                    System.out.println(field);
-//                    if(field.isFK()){
-//                        System.out.println(table.getReference(field));
-//                    }
-//                }
-//            }
-        } catch (SQLException | ClassNotFoundException ex) {
-            Logger.getLogger(Test.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        initComponents();
     }
 
     @SuppressWarnings("unchecked")
@@ -50,7 +20,6 @@ public class Test extends javax.swing.JFrame {
 
         jButton1 = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        pnlGeneral = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -60,8 +29,6 @@ public class Test extends javax.swing.JFrame {
                 jButton1ActionPerformed(evt);
             }
         });
-
-        jScrollPane1.setViewportView(pnlGeneral);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -90,40 +57,7 @@ public class Test extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        try {
-            
-            List<Table> tables = mysql.getTables(mysql.getTablesName());
 
-            for (Table table : tables) {
-                JPanel pnlTabla = new JPanel();
-                int cantCampos = table.getFields().size();
-
-                pnlTabla.setBorder(javax.swing.BorderFactory.createTitledBorder(table.getName()));
-                pnlTabla.setLayout(new java.awt.GridLayout(cantCampos, 1));
-
-                for (Field field : table.getFields()) {
-                    JCheckBox chk = new JCheckBox();
-                    
-                    if(field.isPK()){
-                        chk.setForeground(Color.red);
-                        chk.setText(field.getName()+" (PK)");
-                    }else if(field.isFK()){
-                        chk.setForeground(Color.blue);
-                        chk.setText(field.getName()+" (FK)");
-                    }else{
-                        chk.setText(field.getName());
-                    }
-                    
-                    pnlTabla.add(chk);
-                }
-
-                pnlGeneral.add(pnlTabla);
-            }
-
-            pnlGeneral.updateUI();
-        } catch (SQLException ex) {
-            Logger.getLogger(Test.class.getName()).log(Level.SEVERE, null, ex);
-        }
     }//GEN-LAST:event_jButton1ActionPerformed
 
     public static void main(String args[]) {
@@ -138,6 +72,5 @@ public class Test extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JPanel pnlGeneral;
     // End of variables declaration//GEN-END:variables
 }

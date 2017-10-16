@@ -21,7 +21,23 @@ public class MySQL {
 
         con = new Connection(bdName, rootPass);
     }
+    
+    public MySQL(String rootPass) throws SQLException, ClassNotFoundException{
+        this("mysql", rootPass);
+    }
 
+    public List<String> getDatabasesName() throws SQLException{
+        List<String> dbNames = new ArrayList<>();
+        
+        ResultSet rs = con.executeSelect("SHOW DATABASES");
+        
+        while(rs.next()){
+            dbNames.add(rs.getString(1));
+        }
+        
+        return dbNames;
+    }
+    
     /**
      * Obtiene una lista de todos los nombres de tabla de la base de datos
      * @return
