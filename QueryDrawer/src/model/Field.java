@@ -40,6 +40,14 @@ public class Field {
     public void setKey(Key key) {
         this.key = key;
     }
+    
+    public boolean isPK(){
+        return this.key == Key.PK;
+    }
+    
+    public boolean isFK(){
+        return this.key == Key.FK;
+    }
 
     @Override
     public String toString() {

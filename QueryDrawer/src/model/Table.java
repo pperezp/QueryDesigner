@@ -22,9 +22,21 @@ public class Table {
         references.add(r);
         
         // Busco el campo y lo seteo como FK
-        fields.stream().filter(
-                f -> f.getName().equalsIgnoreCase(r.getNameField())
-        ).findFirst().get().setKey(Key.FK);
+        fields.stream()
+                .filter(
+                    f -> f.getName().equalsIgnoreCase(r.getNameField())
+                )
+                .findFirst()
+                .get().setKey(Key.FK);
+    }
+
+    public Reference getReference(Field f){
+        return references.stream()
+                .filter(
+                    r -> r.getNameField().equalsIgnoreCase(f.getName())
+                )
+                .findFirst()
+                .get();
     }
 
     public String getName() {
@@ -41,7 +53,7 @@ public class Table {
 
     @Override
     public String toString() {
-        return "Table{" + "name=" + name + ", fields=" + fields + '}';
+        return "Table{" + "name=" + name + "}'";
     }
     
     

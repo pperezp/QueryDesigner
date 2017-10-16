@@ -38,6 +38,11 @@ public class Reference {
     public void setPkName(String pkName) {
         this.pkName = pkName;
     }
+
+    @Override
+    public String toString() {
+        return "Reference{" + "nameField=" + nameField + ", tableReference=" + tableReference + ", pkName=" + pkName + '}';
+    }
     
     
 }
