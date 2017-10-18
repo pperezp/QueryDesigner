@@ -1,12 +1,15 @@
 package view;
 
 import java.awt.Color;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.BorderFactory;
 import javax.swing.JCheckBox;
 import javax.swing.JPanel;
 import model.Field;
+import model.Query;
 import model.Table;
 
 /**
@@ -15,8 +18,8 @@ import model.Table;
  */
 public class PanelTable extends JPanel {
 
-    private Table table;
-    private List<JCheckBox> chkFields;
+    private final Table table;
+    private final List<JCheckBox> chkFields;
 
     public PanelTable(Table table) {
         this.table = table;
@@ -43,6 +46,34 @@ public class PanelTable extends JPanel {
             } else {
                 chk.setText(field.getName());
             }
+            
+            chk.addMouseListener(new MouseListener() {
+                @Override
+                public void mouseClicked(MouseEvent e) {
+                }
+
+                @Override
+                public void mousePressed(MouseEvent e) {
+                }
+
+                @Override
+                public void mouseReleased(MouseEvent e) {
+                    // acá voy
+//                    Query.SELECT += table.getName()+"."+field.getName()+",";
+//                    
+//                    System.out.println("SELECT "+Query.SELECT+
+//                                    " FROM "+Query.FROM + 
+//                                    " WHERE "+Query.WHERE+";");
+                }
+
+                @Override
+                public void mouseEntered(MouseEvent e) {
+                }
+
+                @Override
+                public void mouseExited(MouseEvent e) {
+                }
+            });
             
             chkFields.add(chk);
             super.add(chk);

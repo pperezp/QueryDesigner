@@ -12,12 +12,12 @@ import java.util.List;
 public class MySQL {
 
     private String rootPass;
-    private String bdName;
+    private String dbName;
     private Connection con;
 
     public MySQL(String bdName, String rootPass) throws SQLException, ClassNotFoundException {
         this.rootPass = rootPass;
-        this.bdName = bdName;
+        this.dbName = bdName;
 
         con = new Connection(bdName, rootPass);
     }
@@ -126,7 +126,7 @@ public class MySQL {
                 "FROM \n" +
                 "    INFORMATION_SCHEMA.KEY_COLUMN_USAGE\n" +
                 "WHERE \n" +
-                "    TABLE_SCHEMA = '"+bdName+"' AND \n" +
+                "    TABLE_SCHEMA = '"+dbName+"' AND \n" +
                 "    TABLE_NAME = '"+tableName+"' AND\n" +
                 "    REFERENCED_COLUMN_NAME IS NOT NULL;");
         
@@ -143,4 +143,9 @@ public class MySQL {
         
         return references;
     }
+
+    public String getDbName() {
+        return dbName;
+    }
+
 }

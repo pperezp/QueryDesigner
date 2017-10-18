@@ -10,14 +10,49 @@ import model.MySQL;
  */
 public class Drawer {
 
-    private MySQL mysql;
+    private final MySQL mysql;
+    private PanelTablesOfDatabase ptodb;
 
     public Drawer(MySQL mysql) throws SQLException, ClassNotFoundException {
         this.mysql = mysql;
     }
 
-    public void draw(JScrollPane scrollPane) throws SQLException {
+    /**
+     * Dibuja todas las tablas con todos sus campos
+     *
+     * @param scrollPane
+     * @throws SQLException
+     */
+    public void drawAllTables(JScrollPane scrollPane) throws SQLException {
         PanelDataBase pdb = new PanelDataBase(mysql.getTables(mysql.getTablesName()));
+        scrollPane.setViewportView(pdb);
+//        pdb.updateUI();
+    }
+
+    /**
+     * Dibuja en el scroll las tablas (cuando hago doble
+     * click en el tree de las base de datos)
+     *
+     * @param scrollPane
+     * @throws java.sql.SQLException
+     */
+    public void drawTablesName(JScrollPane scrollPane) throws SQLException {
+        ptodb = new PanelTablesOfDatabase(mysql.getDbName(), mysql.getTablesName());
+        scrollPane.setViewportView(ptodb);
+    }
+
+    /**
+     * Dibuja las tablas seleccionadas (en ventana de tablas de una base de datos)
+     * @param scrollPane
+     * @throws SQLException 
+     */
+    public void drawSelectedTables(JScrollPane scrollPane) throws SQLException {
+        PanelDataBase pdb
+                = new PanelDataBase(
+                    mysql.getTables(
+                        ptodb.getSelectedTablesName()
+                    )
+                );
         scrollPane.setViewportView(pdb);
 //        pdb.updateUI();
     }
