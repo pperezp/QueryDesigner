@@ -10,11 +10,21 @@ public class Field {
     private String type;
     private Key key;
     
+    /*Esto es el nombre del campo, pero con la tabla
+    EJ: tabla.campo
+    */
+    private String selectName;
+    
 
-    public Field(String name, String type) {
+    public Field(String name, String type, String tableName) {
         this.name = name;
         this.type = type;
         this.key = Key.NOT;
+        this.selectName = tableName+"."+name;
+    }
+
+    public String getSelectName() {
+        return selectName;
     }
     
     public String getType() {

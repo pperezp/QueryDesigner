@@ -10,6 +10,7 @@ import javax.swing.JCheckBox;
 import javax.swing.JPanel;
 import model.Field;
 import model.Query;
+import model.Reference;
 import model.Table;
 
 /**
@@ -58,12 +59,20 @@ public class PanelTable extends JPanel {
 
                 @Override
                 public void mouseReleased(MouseEvent e) {
-                    // acá voy
-//                    Query.SELECT += table.getName()+"."+field.getName()+",";
-//                    
-//                    System.out.println("SELECT "+Query.SELECT+
-//                                    " FROM "+Query.FROM + 
-//                                    " WHERE "+Query.WHERE+";");
+                    JCheckBox chkField = ((JCheckBox)e.getComponent());
+                    if(chkField.isSelected()){
+                        Query.addField(field.getSelectName());
+                        Query.addTable(table.getName());
+                        
+                        if(field.isFK()){
+                            Reference ref = table.getReference(field);
+                            Query.addWhere(field.getSelectName()+" = " + ref.getTableReference()+"."+ref.getPkName());
+                        }
+                        
+                    }else{
+                        Query.removeField(field.getSelectName());
+                    }
+                    System.out.println(Query.getQuery());
                 }
 
                 @Override

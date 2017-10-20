@@ -93,7 +93,7 @@ public class MySQL {
         
         Field f;
         while(rs.next()){
-            f = new Field(rs.getString(1), rs.getString(2));
+            f = new Field(rs.getString(1), rs.getString(2), tableName);
             
             // is Primary Key?
             if(rs.getString(4).equalsIgnoreCase("PRI")){
